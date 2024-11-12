@@ -37,7 +37,7 @@ part2(String data){
 
   var level = 0;
   var pos = 1;
-  data.runes.forEach((rune) {
+  for (var rune in data.runes) {
     if (String.fromCharCode(rune) == ')'){
       level = level - 1;
     } else if (String.fromCharCode(rune) == "(") {
@@ -50,6 +50,6 @@ part2(String data){
     }
 
     pos = pos + 1;
-   });
+   }
 }
 
