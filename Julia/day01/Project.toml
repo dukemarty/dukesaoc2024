@@ -2,3 +2,6 @@ name = "day01"
 uuid = "e98bf66b-9717-42b0-9fc5-e7945bd2d42f"
 authors = ["Martin Loesch <martin@martinloesch.net>"]
 version = "0.1.0"
+
+[deps]
+aoclib = "5f814308-eb94-4ab5-bd6a-df458987fe3d"

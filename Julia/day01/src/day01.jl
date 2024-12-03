@@ -1,19 +1,9 @@
+# using aoclib
+import aoclib as aoc
+
 module Day01
 
-function print_day_header(day, title)
-    println("")
-    line = "-- Day $day: $title ---"
-    println(line)
-    println("="^length(line))
-    println("")
-end
-
-function print_part_header(id, title)
-    println("")
-    line = "Part $id: $title"
-    println(line)
-    println("-"^length(line))
-end
+import aoclib as aoc
 
 
 function load_multilines(file_path)
@@ -30,7 +20,7 @@ function load_puzzle(file_path)
 end
 
 function part1(l, r)
-    print_part_header(1, "Total List Distance")
+    aoc.print_part_header(1, "Total List Distance")
     ls = sort(l)
     rs = sort(r)
 
@@ -44,7 +34,7 @@ function part1(l, r)
 end
 
 function part2(l, r)
-    print_part_header(2, "Similarity Score")
+    aoc.print_part_header(2, "Similarity Score")
 
     d = Dict(le => count(re -> le==re, r) for le in Set(l))
     # println(d)
@@ -66,7 +56,7 @@ end # module day01
 data_left, data_right = Day01.load_puzzle("puzzle.txt")
 
 
-Day01.print_day_header(1, "Historian Hysteria")
+aoc.print_day_header(1, "Historian Hysteria")
 
 Day01.part1(data_left, data_right)
 

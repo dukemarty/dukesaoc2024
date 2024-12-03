@@ -1,0 +1,4 @@
+name = "Day02"
+uuid = "f0f39b95-9936-4829-960e-f67693a77032"
+authors = ["Martin Loesch <martin@martinloesch.net>"]
+version = "0.1.0"
