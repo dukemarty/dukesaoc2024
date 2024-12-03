@@ -1,0 +1,27 @@
+
+
+# use PowerShell instead of sh:
+# set windows-shell := ["powershell.exe", "-NoLogo", "-Command"]
+
+# hello:
+#   Write-Host "Hello, world!"
+
+
+# use cmd.exe instead of sh:
+set shell := ["cmd.exe", "/c"]
+
+juliapath := "d:/sys/ProgramsCopyInstalled/julia-1.11.1/bin/julia.exe"
+
+hello:
+	echo Hello, world!
+
+[no-cd]
+julia:
+	{{juliapath}}
+
+[no-cd]
+run filename:
+	@{{juliapath}} {{filename}}
+
+# using Pkg
+# Pkg.develop(path="../aoclib")
