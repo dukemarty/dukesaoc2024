@@ -1,6 +1,6 @@
 module aoclib
 
-export print_day_header, print_part_header
+export print_day_header, print_part_header, load_singleline, load_multilines
 
 function print_day_header(day, title)
     println("")
@@ -15,6 +15,10 @@ function print_part_header(id, title)
     line = "Part $id: $title"
     println(line)
     println("-"^length(line))
+end
+
+function load_singleline(file_path)
+    return read(file_path, String)
 end
 
 function load_multilines(file_path)
