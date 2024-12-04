@@ -1,0 +1,10 @@
+# This file is machine-generated - editing it directly is not advised
+
+julia_version = "1.11.1"
+manifest_format = "2.0"
+project_hash = "bce46e0c49520430199e75d83434ad97357db16a"
+
+[[deps.aoclib]]
+path = "../aoclib"
+uuid = "5f814308-eb94-4ab5-bd6a-df458987fe3d"
+version = "0.1.0"
