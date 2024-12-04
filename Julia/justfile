@@ -12,16 +12,31 @@ set shell := ["cmd.exe", "/c"]
 
 juliapath := "d:/sys/ProgramsCopyInstalled/julia-1.11.1/bin/julia.exe"
 
-hello:
-	echo Hello, world!
 
+[private]
+default: julia
+
+
+[doc("Open Julia REPL")]
 [no-cd]
 julia:
 	{{juliapath}}
 
+
+[doc("Execute Julia expression")]
+[no-cd]
+do *expr:
+	{{juliapath}} -E {{expr}}
+
+
+[doc("Execute Julia script file")]
 [no-cd]
 run filename:
 	@{{juliapath}} {{filename}}
 
-# using Pkg
-# Pkg.develop(path="../aoclib")
+
+[doc("Generate a new AoC day project")]
+[no-cd]
+create day:
+	{{juliapath}} {{justfile_directory()}}/generate_day.jl {{day}}
+
