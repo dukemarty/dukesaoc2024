@@ -1,0 +1,7 @@
+name = "Day07"
+uuid = "8d3226ae-6853-433c-b1d8-e8be03714bae"
+authors = ["Martin Loesch <martin@martinloesch.net>"]
+version = "0.1.0"
+
+[deps]
+aoclib = "5f814308-eb94-4ab5-bd6a-df458987fe3d"
