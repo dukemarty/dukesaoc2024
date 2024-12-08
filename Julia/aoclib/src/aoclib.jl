@@ -47,4 +47,15 @@ function load_multiline_blocks(file_path)
     return res
 end
 
+function load_char_array(file_path)
+    file_content = read(file_path, String)
+    lines = split(file_content, "\r\n")
+
+    # conversion found here: https://discourse.julialang.org/t/converting-a-array-of-strings-to-an-array-of-char/35123
+    res = reduce(vcat, permutedims.(collect.(lines)))
+
+    return res
+
+end
+
 end # module aoclib
