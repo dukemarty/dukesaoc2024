@@ -60,8 +60,8 @@ function part2(init_map, pos, dir)
     map[pos[1], pos[2]] = dirsym[dir]
 
     # loopcount = 0
-    res = 0
     mapsize = size(map)
+    obstacles = Set()
     while !is_outside(mapsize, pos)
         # loopcount += 1
         # print("  $loopcount ")
@@ -74,18 +74,19 @@ function part2(init_map, pos, dir)
             dir = rot * dir
             continue
         end
-        if next_pos != init_pos && check_obstacle_leads_to_circle_part2(pos, dir, map, mapsize)
+        if next_pos != init_pos && g_at(next_pos, map) == '.' && check_obstacle_leads_to_circle_part2(pos, dir, map, mapsize)
             # debug_map = copy(map)
             # s_at(pos+dir, debug_map, 'O')
             # println("=== Obstacle at $(pos+dir) ===========")
             # println(debug_map)
             # println("--------------------------------------")
-            res += 1
+            push!(obstacles, next_pos)
         end
         pos = next_pos
         map[pos[1], pos[2]] = map[pos[1], pos[2]] == '.' ? dirsym[dir] : 'X'
     end
 
+    res = length(obstacles)
     println("")
     println("Number of possible obstruction positions: $res")
 end
@@ -98,9 +99,11 @@ is_outside(mapsize, pos) = pos[1] < 1 || pos[2] < 1 || pos[1] > mapsize[1] || po
 
 # assumption: won't get into a loop created completely by the additional obstacle
 function check_obstacle_leads_to_circle_part2(pos, dir, map, mapsize)
-    cdir = rot * dir
     cpos = copy(pos)
     cmap = copy(map)
+    obst_pos = cpos + dir
+    s_at(obst_pos, cmap, '#')
+    cdir = rot * dir
     seen = Set()
 
     push!(seen, vcat(cpos, cdir))
