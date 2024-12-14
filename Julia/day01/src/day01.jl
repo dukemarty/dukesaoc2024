@@ -1,10 +1,8 @@
-# using aoclib
 import aoclib as aoc
 
 module Day01
 
 import aoclib as aoc
-
 
 function load_multilines(file_path)
     file_content = read(file_path, String)
