@@ -1,0 +1,7 @@
+name = "Day20"
+uuid = "364c95ee-cde0-4679-bdce-8d9774dec277"
+authors = ["Martin Loesch <martin@martinloesch.net>"]
+version = "0.1.0"
+
+[deps]
+aoclib = "5f814308-eb94-4ab5-bd6a-df458987fe3d"
