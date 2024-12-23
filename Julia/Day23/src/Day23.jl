@@ -15,8 +15,6 @@ end
 function part1(connections)
     aoc.print_part_header(1, "Comuter triples with maybe chief historian")
 
-    res = 0
-
     conns = Dict()
     for c ∈ connections
         if haskey(conns, c[1])
@@ -30,42 +28,31 @@ function part1(connections)
             conns[c[2]] = [c[1]]
         end
     end
-    println(conns)
+    # println(conns)
     tk = filter(k -> startswith(k, "t"), keys(conns))
-    println(tk)
+    # println(tk)
+    found = Set()
     for k in tk
-        if length(conns[k]) > 3
-            println("Skipped because initial length > 3")
-            continue
-        end
-        seen = Set(conns[k])
-        push!(seen, k)
-        todo = conns[k]
-        while length(todo) > 0
-            next = pop!(todo)
-            for c ∈ conns[next]
-                if c ∈ seen
-                    continue
+        cs = conns[k]
+        for i ∈ 1:length(cs)-1
+            for j ∈ i+1:length(cs)
+                if cs[j] in conns[cs[i]]
+                    # println("Found set: $k-$(cs[i])-$(cs[j])")
+                    push!(found, Set([k, cs[i], cs[j]]))
                 end
-                push!(seen, c)
-                push!(todo, c)
             end
         end
-        if length(seen) == 3
-            println("Found another set: $seen")
-            res += 1
-        else
-            println("Final set to large: $seen")
-        end
     end
+
+    res = length(found)
 
     println("Count of triples with t.* computer: $res")
 end
 
 end # module Day23
 
-connections = Day23.load_data("test.txt")
-# connections = Day23.load_data("puzzle.txt")
+# connections = Day23.load_data("test.txt")
+connections = Day23.load_data("puzzle.txt")
 # println(connections)
 
 aoc.print_day_header(23, "LAN Party")
