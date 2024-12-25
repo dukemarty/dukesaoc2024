@@ -46,8 +46,8 @@ function part1(connections)
 end
 
 struct Candidate
-    members :: Set{String}
-    common :: Set{String}
+    members::Set{String}
+    common::Set{String}
 end
 
 function part2(connections)
@@ -68,46 +68,53 @@ function part2(connections)
     end
     # println(conns)
 
-    tk = filter(k -> startswith(k, "t"), keys(conns))
-    # println(tk)
-
     cands = PriorityQueue(Base.Order.Reverse)
-    for k in tk
+    best = Candidate(Set(), Set())
+    seen = Set()
+    for k in keys(conns)
         cs = conns[k]
         for c ∈ cs
             c == k && continue
 
             common = intersect(conns[k], conns[c])
-            # println("Common: $common")
-            enqueue!(cands, Candidate(Set([k, c]), Set(common)), length(common))
-        end
-    end
 
-    best = Candidate(Set(), Set())
-    while length(cands) > 0
-        println("  #Cands: $(length(cands))")
-        next = dequeue!(cands)
-        if length(best.members) > length(next.common)
-            break
+            members = Set([k, c])
+            members ∈ seen && continue
+            # println("Common: $common")
+            enqueue!(cands, Candidate(members, Set(common)), length(common))
+            push!(seen, members)
         end
-        for t in setdiff(next.common, next.members)
-            common = intersect(next.common, conns[t])
-            # println("New common: $(next.common) -> $common")
-            members = copy(next.members)
-            push!(members, t)
-            if length(setdiff(common, members)) == 0
-                if length(members) > length(best.members)
-                    best = Candidate(members, common)
-                    println("New best candidate: $best")
+
+        while length(cands) > 0
+            # println("  #Cands: $(length(cands))")
+            next = dequeue!(cands)
+            if length(best.members) >= length(next.common)
+                # println("Best candidate can not improve current solution with lengths $(length(best.members)) >= $(length(next.common))")
+                break
+            end
+            for t in setdiff(next.common, next.members)
+                common = intersect(next.common, conns[t])
+                # println("New common: $(next.common) -> $common")
+                members = copy(next.members)
+                push!(members, t)
+                members ∈ seen && continue
+                if length(setdiff(common, members)) == 0
+                    if length(members) > length(best.members)
+                        best = Candidate(members, common)
+                        println("New best candidate: $best")
+                    # elseif length(members) == length(best.members)
+                    #     println("Would have found alternative solution: $members")
+                    end
+                else
+                    enqueue!(cands, Candidate(members, Set(common)), length(common))
+                    push!(seen, members)
                 end
-            else
-                enqueue!(cands, Candidate(members, Set(common)), length(common))
             end
         end
     end
 
     println("Best found network: $best")
-    res = join(sort(collect(best.members)))
+    res = join(sort(collect(best.members)), ",")
 
     println("Code of largest network: $res")
 end
